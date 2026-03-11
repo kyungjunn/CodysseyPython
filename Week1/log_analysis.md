@@ -110,4 +110,3 @@
 
 ---
 
-*본 보고서는 mission_computer_main.log 데이터를 기반으로 자동 생성되었습니다.*
