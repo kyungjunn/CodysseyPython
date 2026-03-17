@@ -162,7 +162,6 @@ def analyze_and_write_report(entries, report_filename):
         '\n',
         '---\n',
         '\n',
-        
     ]
 
     try:
@@ -174,10 +173,36 @@ def analyze_and_write_report(entries, report_filename):
     except OSError as e:
         print(f'[오류] 보고서 저장 중 문제가 발생했습니다: {e}')
 
+def print_log_reversed(entries):
+    """로그를 시간의 역순으로 정렬해서 출력하는 함수."""
+    print('=' * 60)
+    print('       로그 역순 출력 (최신순)')
+    print('=' * 60)
+    for entry in reversed(entries):
+        print(f'{entry["timestamp"]} | {entry["event"]} | {entry["message"]}')
+    print('=' * 60)
 
+
+def save_critical_events(entries, filename):
+    """문제가 되는 이벤트만 따로 파일로 저장하는 함수."""
+    critical_events = [e for e in entries if 'unstable' in e['message'].lower()
+                       or 'explosion' in e['message'].lower()]
+
+    try:
+        with open(filename, 'w', encoding='utf-8') as f:
+            f.write('timestamp,event,message\n')
+            for e in critical_events:
+                f.write(f'{e["timestamp"]},{e["event"]},{e["message"]}\n')
+        print(f'[완료] 문제 이벤트 파일이 저장되었습니다: {filename}')
+    except PermissionError:
+        print(f'[오류] 파일 쓰기 권한이 없습니다: {filename}')
+    except OSError as e:
+        print(f'[오류] 파일 저장 중 문제가 발생했습니다: {e}')
+        
 if __name__ == '__main__':
     log_filename = 'mission_computer_main.log'
     report_filename = 'log_analysis.md'
+    critical_filename = 'critical_events.log' 
 
     print('Hello Mars')
     print()
@@ -186,4 +211,6 @@ if __name__ == '__main__':
     if lines is not None:
         print_log(lines)
         entries = parse_log(lines)
+        print_log_reversed(entries)   
         analyze_and_write_report(entries, report_filename)
+        save_critical_events(entries, critical_filename)
