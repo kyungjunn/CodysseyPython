@@ -11,7 +11,7 @@ def read_log(filename):
         print(f'[오류] 파일 접근 권한이 없습니다: {filename}')
         return None
     except UnicodeDecodeError:
-        print(f'[오류] 파일 인코딩을 읽을d 수 없습니다: {filename}')
+        print(f'[오류] 파일 인코딩을 읽을 수 없습니다: {filename}')
         return None
     except OSError as e:
         print(f'[오류] 파일을 여는 중 문제가 발생했습니다: {e}')
