@@ -1,15 +1,15 @@
 import pickle
 
 def process_mars_inventory():
-    file_name = 'Mars_Base_Inventory_List.csv'
-    danger_file_name = 'Mars_Base_Inventory_danger.csv'
-    bin_file_name = 'Mars_Base_Inventory_List.bin'
+    project_file = 'Mars_Base_Inventory_List.csv'
+    danger_project_file = 'Mars_Base_Inventory_danger.csv'
+    bin_project_file = 'Mars_Base_Inventory_List.bin'
     
     inventory_list = []
     
     try:
         # 1. 파일 읽기 및 원본 내용 출력
-        with open(file_name, 'r', encoding='utf-8') as f:
+        with open(project_file, 'r', encoding='utf-8') as f:
             lines = f.readlines()
             
             if not lines:
@@ -47,23 +47,23 @@ def process_mars_inventory():
 
         # 5. 위험 물질 목록을 CSV 파일로 저장
         try:
-            with open(danger_file_name, 'w', encoding='utf-8') as f:
+            with open(danger_project_file, 'w', encoding='utf-8') as f:
                 f.write(header_str + '\n')
                 for item in danger_list:
                     f.write(','.join(map(str, item)) + '\n')
-            print(f'\n[5] {danger_file_name} 저장 완료.')
+            print(f'\n[5] {danger_project_file} 저장 완료.')
         except IOError as e:
             print(f'CSV 쓰기 중 오류 발생: {e}')
 
         # 보너스 과제: 이진 파일 저장 및 읽기
         try:
             # 이진 파일로 저장
-            with open(bin_file_name, 'wb') as f:
+            with open(bin_project_file, 'wb') as f:
                 pickle.dump(inventory_list, f)
-            print(f'\n[Bonus] {bin_file_name} 이진 파일 저장 완료.')
+            print(f'\n[Bonus] {bin_project_file} 이진 파일 저장 완료.')
 
             # 이진 파일 읽기
-            with open(bin_file_name, 'rb') as f:
+            with open(bin_project_file, 'rb') as f:
                 loaded_data = pickle.load(f)
             
             print('\n--- [Bonus] 이진 파일(bin)로부터 로드된 내용 (상위 5개) ---')
@@ -73,7 +73,7 @@ def process_mars_inventory():
             print(f'이진 파일 처리 중 오류 발생: {e}')
 
     except FileNotFoundError:
-        print(f'오류: {file_name} 파일을 찾을 수 없습니다.')
+        print(f'오류: {project_file} 파일을 찾을 수 없습니다.')
     except Exception as e:
         print(f'예상치 못한 예외 발생: {e}')
 
