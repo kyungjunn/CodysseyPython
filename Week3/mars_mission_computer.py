@@ -56,21 +56,25 @@ class DummySensor:
             log_file.write(log_line)
 
         return self.env_values
+    
+def main():
+    # DummySensor 인스턴스 생성
+    ds = DummySensor()
 
-# DummySensor 인스턴스 생성
-ds = DummySensor()
+    # 랜덤 데이터 생성
+    ds.set_env()
 
-# 랜덤 데이터 생성
-ds.set_env()
+    # 데이터 확인 및 로그 저장
+    env = ds.get_env()
 
-# 데이터 확인 및 로그 저장
-env = ds.get_env()
+    # 결과 출력 테스트
+    print('=== 화성 기지 환경 데이터 ===')
+    print(f"화성 기지 내부 온도       : {env['mars_base_internal_temperature']} °C")
+    print(f"화성 기지 외부 온도       : {env['mars_base_external_temperature']} °C")
+    print(f"화성 기지 내부 습도       : {env['mars_base_internal_humidity']} %")
+    print(f"화성 기지 외부 광량       : {env['mars_base_external_illuminance']} W/m²")
+    print(f"화성 기지 내부 CO₂ 농도   : {env['mars_base_internal_co2']} %")
+    print(f"화성 기지 내부 산소 농도  : {env['mars_base_internal_oxygen']} %")
 
-# 결과 출력 테스트
-print('=== 화성 기지 환경 데이터 ===')
-print(f"화성 기지 내부 온도       : {env['mars_base_internal_temperature']} °C")
-print(f"화성 기지 외부 온도       : {env['mars_base_external_temperature']} °C")
-print(f"화성 기지 내부 습도       : {env['mars_base_internal_humidity']} %")
-print(f"화성 기지 외부 광량       : {env['mars_base_external_illuminance']} W/m²")
-print(f"화성 기지 내부 CO₂ 농도   : {env['mars_base_internal_co2']} %")
-print(f"화성 기지 내부 산소 농도  : {env['mars_base_internal_oxygen']} %")
+if __name__ == '__main__':
+    main()

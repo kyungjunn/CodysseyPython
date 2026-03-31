@@ -1,7 +1,7 @@
+import random
 import datetime
 import json
 import os
-import random
 import threading
 import time
 
@@ -111,7 +111,7 @@ class MissionComputer:
                     break
                 time.sleep(0.1)
 
-        print('System stopped....')
+        print('System stopped...')
 
     def _wait_for_stop(self):
         # 사용자가 'q'를 입력하면 반복 중단
@@ -138,7 +138,7 @@ class MissionComputer:
         print()
 
 
-ds = DummySensor()
-
-RunComputer = MissionComputer()
-RunComputer.get_sensor_data()
+if __name__ == '__main__':
+    ds = DummySensor()
+    RunComputer = MissionComputer()
+    RunComputer.get_sensor_data()
