@@ -1,0 +1,3 @@
+show_os_info=True
+show_cpu_load=True
+show_sensor_data=True
