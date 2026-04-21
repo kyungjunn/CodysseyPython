@@ -289,7 +289,7 @@ def main():
     app = QApplication(sys.argv)
     window = CalculatorWindow()
     window.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec_()) # event loop로 실행해서 무한 대기 상태로 (창을 닫아야 꺼지도록)
 
 
 if __name__ == '__main__':
