@@ -1,11 +1,13 @@
-import zipfile
-import itertools
-import time
+import zipfile # ZIP 파일 처리를 위한 라이브러리
+import itertools  # 비밀번호 조합 생성을 위한 라이브러리
+import time # 시간 측정을 위한 라이브러리
 import string
-import zlib  # zlib 모듈을 추가로 불러옵니다.
+import zlib  # 압축 관련 오류 처리를 위한 라이브러리
 
 def unlock_zip():
     zip_file_path = 'emergency_storage_key.zip'
+
+    # 문자 집합 정의
     # 소문자 알파벳과 숫자로 구성된 문자열 
     characters = string.ascii_lowercase + string.digits
     
@@ -28,9 +30,10 @@ def unlock_zip():
     is_found = False
     
     # 6자리 중복 순열 생성 (문자 + 숫자)
+    # 중첩 for 문을 사용하지 않고 itertools.product를 활용하여 효율적으로 조합 생성
     for password_tuple in itertools.product(characters, repeat=6):
         attempt_count += 1
-        password = ''.join(password_tuple)
+        password = ''.join(password_tuple) # 문자열 형태로 반환
         
         # 출력으로 인한 속도 저하를 막기 위해 100만 번마다 진행 상황 출력
         if attempt_count % 1000000 == 0:
@@ -40,9 +43,9 @@ def unlock_zip():
         try:
             # 암호 해제 시도
             zip_file.extractall(pwd=password.encode('utf-8'))
-            is_found = True
-            
+
             # 성공 시 결과 출력
+            is_found = True
             elapsed_time = time.time() - start_time
             print('\n[ 잠금 해제 성공! ]')
             print(f'찾아낸 비밀번호: {password}')

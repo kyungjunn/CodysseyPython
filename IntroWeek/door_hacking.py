@@ -1,10 +1,10 @@
 import zipfile
 import itertools
-import time
+import time 
 import string
-import multiprocessing
+import multiprocessing # 멀티프로세싱을 위한 라이브러리
 import sys
-import zlib  # zlib 오류 처리를 위해 추가
+import zlib 
 
 def check_password_chunk(first_char, zip_file_path):
     '''지정된 첫 글자로 시작하는 모든 6자리 비밀번호 조합을 테스트합니다.'''
