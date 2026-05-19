@@ -20,9 +20,10 @@ def check_password_chunk(first_char, zip_file_path):
         password = first_char + ''.join(password_tuple)
         
         try:
-            zip_file.extractall(pwd=password.encode('utf-8'))
-            zip_file.close()
-            return password  # 성공 시 비밀번호 반환
+            #zip_file.extractall(pwd=password.encode('utf-8'))
+            #zip_file.close()
+            if zip_file.testzip(pwd=password.encode('utf-8')) is None:
+                return password  # 성공 시 비밀번호 반환
             
         except (RuntimeError, zipfile.BadZipFile, zlib.error):
             # 비밀번호가 틀렸을 때 발생하는 예외들을 무시하고 다음 조합 시도
